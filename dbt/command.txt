@@ -1,0 +1,14 @@
+dbt init datamart_mssql --profile dbt_sqlserver
+dbt init datamart --profile dbt_oracle
+dbt debug --project-dir /opt/airflow/dbt/datamart 
+
+dbt compile --select revenue_by_month_customer --project-dir /opt/datamart 
+dbt run --select revenue_by_month_customer --project-dir /opt/datamart 
+
+
+dbt run --project-dir /opt/datamart 
+
+dbt docs generate --project-dir /opt/datamart 
+dbt docs serve --project-dir /opt/datamart --port 8000 
+
+odbcinst -q -d

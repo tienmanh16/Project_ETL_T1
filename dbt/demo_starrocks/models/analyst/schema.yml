@@ -1,0 +1,62 @@
+
+version: 2
+
+sources:
+    - name: SALES_SOURCE_ANALYST
+      schema: db_starrocks
+      quoting:
+        database: false
+        schema: false
+        identifier: false
+
+      # default freshness
+      # freshness: 
+      #   warn_after: {count: 12, period: hour}
+      #   error_after: {count: 24, period: hour}
+
+      # loaded_at_field: last_updated
+
+      tables:
+        - name: nhan_vien_table
+        - name: du_lieu_ban_hang_table
+        - name: khach_hang_table
+        - name: chi_nhanh_table
+
+models:
+  - name: revenue_by_month_saleman
+    description: "Revenue by month and saleman"
+    columns:
+      - name: THANG
+        description: "Month of the year"
+      - name: NHAN_VIEN_BAN
+        description: "Saleman name"
+      - name: TONG_DOANH_THU
+        description: "Revenue"
+
+  - name: revenue_by_month_store
+    description: "Revenue by month and store"
+    columns:
+      - name: THANG
+        description: "Month of the year"
+      - name: CHI_NHANH
+        description: "Store name"
+      - name: TONG_DOANH_THU
+        description: "Revenue"
+
+  - name: revenue_by_branch
+    description: "Revenue by branch"
+    columns:
+      - name: TEN_CHI_NHANH
+        description: "Name of branch"
+      - name: TONG_DOANH_THU
+        description: "Revenue of branch"
+      
+  - name: revenue_by_customer
+    description: "Revenue by customer"
+    columns:
+      - name: MA_KH
+        description: "ID of customer"
+      - name: KHACH_HANG
+        description: "Name of customer"
+      - name: TONG_DOANH_THU
+        description: "Revenue of customer"

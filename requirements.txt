@@ -1,0 +1,36 @@
+requests
+pandas
+python-dotenv
+celery
+redis
+gspread
+flower
+celery-singleton
+sqlalchemy
+airflow-code-editor
+pyyaml
+oracledb
+openpyxl
+cx-Oracle
+botocore
+boto3
+pyodbc
+pymysql
+dbt-core
+dbt-starrocks
+
+#dbt
+# dbt-core==1.7.18
+# dbt-extractor==0.5.1
+# dbt-fabric==1.7.4
+# dbt-semantic-interfaces==0.4.4
+# dbt-sqlserver==1.7.4
+# dbt-oracle
+# dbt-postgres
+
+
+# dbt-starrocks==1.6.3
+# dbt-core==1.6.0
+# dbt-semantic-interfaces==0.2.0
+# dbt-extractor==0.4.1
+

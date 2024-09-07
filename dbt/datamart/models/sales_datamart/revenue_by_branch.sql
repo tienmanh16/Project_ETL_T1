@@ -1,0 +1,16 @@
+{{ config(
+    materialized='table'
+) }}
+
+SELECT 
+    c.TEN_CHI_NHANH,
+    SUM(d.DOANH_THU) AS TONG_DOANH_THU
+FROM 
+    BAI_TEST.DU_LIEU_BAN_HANG_TABLE d
+JOIN 
+    BAI_TEST.CHI_NHANH_TABLE c
+ON 
+    d.CHI_NHANH = c.MA_CHI_NHANH
+GROUP BY 
+    c.TEN_CHI_NHANH
+

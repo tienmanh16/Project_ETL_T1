@@ -1,0 +1,7 @@
+venv
+logs/
+/airflow/logs/
+*__pycache__*
+*.log
+*.ipynb
+*/secrets/*

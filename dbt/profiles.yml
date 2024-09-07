@@ -1,0 +1,75 @@
+datamart_starrock:
+  outputs:
+    dev:
+      host: host.docker.internal
+      password: tien
+      port: 9030
+      schema: db_starrocks
+      type: starrocks
+      username: tien
+      version: '3'
+  target: dev
+datamart_starrocks:
+  outputs:
+    dev:
+      host: host.docker.internal
+      password: tien
+      port: 9030
+      schema: db_starrocks
+      type: starrocks
+      username: tien
+      version: 3.1.0
+  target: dev
+dbt_oracle:
+  outputs:
+    dev:
+      database: '{{ env_var(''DB_NAME'') }}'
+      host: '{{ env_var(''DB_HOST'') }}'
+      pass: '{{ env_var(''DB_PASSWORD'') }}'
+      port: '{{ env_var(''DB_PORT'') }}'
+      protocol: tcp
+      retry_count: 1
+      retry_delay: 3
+      schema: '{{ env_var(''DB_SCHEMA'') }}'
+      service: '{{ env_var(''DB_SERVICE'') }}'
+      threads: 4
+      type: oracle
+      user: '{{ env_var(''DB_USER'') }}'
+  target: dev
+dbt_postgres:
+  outputs:
+    dev:
+      dbname: '{{ env_var(''DB_POSTGRES_NAME'') }}'
+      host: '{{ env_var(''DB_HOST'') }}'
+      password: '{{ env_var(''DB_POSTGRES_PASSWORD'') }}'
+      port: 5434
+      schema: '{{ env_var(''DB_POSTGRES_NAME'') }}'
+      type: postgres
+      user: '{{ env_var(''DB_POSTGRES_USER'') }}'
+  target: dev
+dbt_sqlserver:
+  outputs:
+    dev:
+      database: '{{ env_var(''DB_MSSQL_NAME'') }}'
+      driver: '{{ env_var(''DB_MSSQL_DRIVER'') }}'
+      encrypt: false
+      password: '{{ env_var(''DB_MSSQL_PASSWORD'') }}'
+      port: 1433
+      retry_count: 1
+      retry_delay: 3
+      schema: '{{ env_var(''DB_MSSQL_SCHEMA'') }}'
+      server: '{{ env_var(''DB_MSSQL_SERVER'') }}'
+      threads: 4
+      type: sqlserver
+      user: '{{ env_var(''DB_MSSQL_USER'') }}'
+  target: dev
+dbt_starrocks:
+  outputs:
+    dev:
+      type: starrocks
+      host: '{{ env_var(''DB_HOST'') }}'
+      port: 9030
+      schema: '{{ env_var(''DB_STARROCKS_SCHEMA'') }}'
+      username: '{{ env_var(''DB_STARROCKS_USER'') }}'
+      password: '{{ env_var(''DB_STARROCKS_PASSWORD'') }}'
+  target: dev

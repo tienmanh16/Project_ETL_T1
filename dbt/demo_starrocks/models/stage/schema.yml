@@ -1,0 +1,108 @@
+version: 2
+
+sources:
+    - name: SALES_SOURCE_STAGE
+      schema: db_starrocks
+      quoting:
+        database: false
+        schema: false
+        identifier: false
+
+      # default freshness
+      freshness: 
+        warn_after: {count: 7, period: day}
+        error_after: {count: 14, period: day}
+
+      loaded_at_field: last_updated
+
+      tables:
+        - name: nhan_vien_table
+        - name: du_lieu_ban_hang_table
+        - name: khach_hang_table
+        - name: chi_nhanh_table
+        - name: kpi_table
+        - name: san_pham_table
+
+
+models:
+  - name: branch
+    description: "Name of branch"
+    columns:
+      - name: ma_chi_nhanh
+        description: "ID of branch"
+      - name: ten_chi_nhanh
+        description: "Name of branch"
+      - name: tinh_thanh_pho
+        description: "Province of branch"
+      - name: last_updated
+        description: "Last updated of branch"
+
+  - name: customer
+    description: "data of customer"
+    columns:
+      - name: ma_kh
+        description: "ID of customer"
+      - name: khach_hang
+        description: "Name of customer"
+      - name: last_updated
+        description: "Last updated of customer"
+
+  - name: data_sales
+    description: "Revenue by branch"
+    columns:
+      - name: don_hang
+        description: "ID of order"
+      - name: ma_san_pham
+        description: "ID of product"
+      - name: ngay_hach_toan
+        description: "Date of payment"
+      - name: ma_kh
+        description: "ID of customer"
+      - name: ma_nhan_vien_ban
+        description: "ID of salesman"
+      - name: ma_chi_nhanh
+        description: "ID of branch"
+      - name: so_luong_ban
+        description: "Number of sales"
+      - name: don_gia
+        description: "Price of product"
+      - name: doanh_thu
+        description: "Revenue"
+      - name: gia_von_hang_hoa
+        description: "Cost of product"
+      - name: last_updated
+        description: "Last updated of order"
+
+  - name: employee
+    description: "Data of employee"
+    columns:
+      - name: ma_nhan_vien_ban
+        description: "ID of salesman"
+      - name: nhan_vien_ban
+        description: "Name of salesman"
+      - name: last_updated
+        description: "Last updated of employee"
+
+  - name: kpi
+    description: "KPI of branch"
+    columns:
+      - name: nam
+        description: "Year"
+      - name: tinh_thanh_pho
+        description: "Province of branch"
+      - name: kpi
+        description: "Value of KPI"
+      - name: last_updated
+        description: "Last updated of KPI"
+
+  - name: product
+    description: "Data of product"
+    columns:
+      - name: ma_san_pham
+        description: "ID of product"
+      - name: san_pham
+        description: "Name of product"
+      - name: nhom_san_pham
+        description: "Group of product"
+      - name: last_updated
+        description: "Last updated of product"

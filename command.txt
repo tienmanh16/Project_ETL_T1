@@ -1,0 +1,115 @@
+docker compose up -d --build
+docker compose up -d
+
+
+dbt init datamart --profile dbt_oracle
+dbt init datamart --profile dbt_sqlserver
+dbt debug --project-dir /opt/airflow/dbt/datamart
+
+dbt debug --project-dir /opt/airflow/dbt/datamart_postgres
+
+dbt compile --select revenue_by_month_customer --project-dir /opt/datamart 
+dbt run -s revenue_by_branch --project-dir /opt/airflow/dbt/datamart_postgres
+
+sudo chmod 777 -R /opt/airflow/dbt/datamart_mssql/logs/
+dbt run --project-dir /opt/airflow/dbt/datamart 
+
+dbt deps --project-dir /opt/airflow/dbt/datamart 
+
+dbt docs generate --project-dir /opt/datamart 
+dbt docs serve --project-dir /opt/datamart --port 8000 
+
+odbcinst -q -d
+
+cd dbt
+dbt debug --project-dir /opt/airflow/dbt/datamart_mssql
+
+sudo chmod 777 -R /home/manhtien/airflow/dbt/datamart_mssql/logs
+
+dbt-core==1.7.18
+dbt-extractor==0.5.1
+dbt-fabric==1.7.4
+dbt-semantic-interfaces==0.4.4
+dbt-sqlserver==1.7.4
+dbt-oracle
+
+
+dbt debug --project-dir /opt/airflow/dbt/demo_starrocks
+
+dbt init demo_starrocks --profile dbt_starrocks
+
+dbt run --project-dir /opt/airflow/dbt/demo_starrocks
+
+----------------------------------------------
+branch
+
+SELECT 
+        c.ten_chi_nhanh,
+        SUM(d.doanh_thu) as tong_doanh_thu,
+        d.last_updated
+    FROM 
+        du_lieu_ban_hang_table d
+    JOIN 
+        chi_nhanh_table c
+    ON 
+        d.ma_chi_nhanh = c.ma_chi_nhanh
+    GROUP BY 
+        c.ten_chi_nhanh,
+        d.last_updated;
+
+
+customer
+
+ SELECT 
+    kh.ma_kh,
+    kh.Khach_hang,
+    SUM(bh.doanh_thu) AS tong_doanh_thu,
+    bh.last_updated
+FROM 
+    khach_hang_table kh
+JOIN 
+    du_lieu_ban_hang_table bh 
+    ON kh.ma_kh = bh.ma_kh
+GROUP BY 
+    kh.ma_kh,
+    kh.khach_hang,
+    bh.last_updated
+ORDER BY 
+    tong_doanh_thu DESC;      
+
+
+
+    saleman
+
+SELECT 
+    DATE_FORMAT(ngay_hach_toan, '%Y-%m') AS thang,
+    NV.nhan_vien_ban,
+    SUM(doanh_thu) AS tong_doanh_thu,
+    DL.last_updated
+FROM 
+    nhan_vien_table NV
+JOIN 
+    du_lieu_ban_hang_table DL
+ON
+    NV.ma_nhan_vien_ban = DL.ma_nhan_vien_ban 
+GROUP BY 
+    DATE_FORMAT(ngay_hach_toan, '%Y-%m'),
+    NV.nhan_vien_ban,
+    DL.last_updated
+ORDER BY 
+    thang; 
+
+
+SELECT 
+    DATE_FORMAT(ngay_hach_toan, '%Y-%m') AS thang,
+    ma_chi_nhanh,
+    SUM(doanh_thu) AS tong_doanh_thu,
+    DL.last_updated
+FROM 
+    du_lieu_ban_hang_table DL
+GROUP BY 
+    DATE_FORMAT(ngay_hach_toan, '%Y-%m'), 
+    ma_chi_nhanh,
+    DL.last_updated
+ORDER BY 
+    thang
